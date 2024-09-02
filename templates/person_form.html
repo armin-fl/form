@@ -1,0 +1,56 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript jalaliDatePicker</title>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="{% static '\js\jalalidatepicker.min.js'  %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static '\css\jalalidatepicker.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static '\css\main.css' %}" />
+  </head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <!-- The visible input field for the Jalali datepicker -->
+        <input
+            id="date_of_birth_visible"
+            type="text"
+            placeholder="Select Date"
+            data-jdp
+            data-jdp-min-date="today"
+            data-jdp-only-date
+        />
+
+        <!-- The hidden input field that will store the date in the format Django expects -->
+        <input
+            type="hidden"
+            id="date_of_birth"
+            name="date_of_birth"
+        />
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateFieldVisible = document.getElementById('date_of_birth_visible');
+            const dateFieldHidden = document.getElementById('date_of_birth');
+
+            dateFieldVisible.addEventListener('change', function () {
+                const selectedDate = dateFieldVisible.value;
+                const [year, month, day] = selectedDate.split('/');
+                const formattedDate = `${year}-${month}-${day}`;
+
+                dateFieldHidden.value = formattedDate;
+                console.log("Formatted date set:", formattedDate); // For debugging
+            });
+        });
+    </script>
+</body>
+</html>

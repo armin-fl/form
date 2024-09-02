@@ -1,9 +1,9 @@
 
 from django.urls import path
-from .views import FormView
+from .views import person_create
 
 urlpatterns = [
 
-    path('', FormView, name='form'),
+    path('', person_create, name='person_create'),
 
 ]
