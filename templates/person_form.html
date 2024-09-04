@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -6,25 +5,59 @@
   <head>
     <title>JavaScript jalaliDatePicker</title>
     <meta charset="UTF-8" />
-    <script type="text/javascript" src="{% static '\js\jalalidatepicker.min.js'  %}"></script>
-    <link type="text/css" rel="stylesheet" href="{% static '\css\jalalidatepicker.min.css' %}" />
-
-    <link rel="stylesheet" href="{% static '\css\main.css' %}" />
+    <link href="{% static 'mdb/css/mdb.min.css' %}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{% static 'js/jalalidatepicker.min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/jalalidatepicker.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   </head>
 <body>
-    <form method="post">
+<div class="container p-5">
+    <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <!-- Form field for 'name' -->
+        <div class="form-outline mb-4">
+            {{ form.name }}
+            <label class="form-label" for="name">{{ form.name.label }}</label>
+        </div>
+
+        <!-- Form field for 'family_name' -->
+        <div class="form-outline mb-4">
+            {{ form.family_name }}
+            <label class="form-label" for="family_name">{{ form.family_name.label }}</label>
+        </div>
+
+        <!-- Form field for 'age' -->
+        <div class="form-outline mb-4">
+            {{ form.age }}
+            <label class="form-label" for="age">{{ form.age.label }}</label>
+        </div>
+
+        <!-- Form field for 'selection' -->
+        <div class="form-outline mb-4">
+            {{ form.selection }}
+            <label class="form-label" for="selection">{{ form.selection.label }}</label>
+        </div>
+
+        <!-- Form field for 'nationality' -->
+        <div class="form-check mb-4">
+            {{ form.nationality }}
+            <label class="form-label" for="nationality">{{ form.nationality.label }}</label>
+        </div>
 
         <!-- The visible input field for the Jalali datepicker -->
-        <input
-            id="date_of_birth_visible"
-            type="text"
-            placeholder="Select Date"
-            data-jdp
-            data-jdp-min-date="today"
-            data-jdp-only-date
-        />
+        <div class="form-outline mb-4">
+            <input
+                id="date_of_birth_visible"
+                type="text"
+                class="form-control"
+                placeholder="Select Date"
+                data-jdp
+                data-jdp-min-date="today"
+                data-jdp-only-date
+            />
+            <label class="form-label" for="date_of_birth_visible">Date of Birth</label>
+        </div>
 
         <!-- The hidden input field that will store the date in the format Django expects -->
         <input
@@ -33,9 +66,9 @@
             name="date_of_birth"
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
     </form>
-
+</div>
     <script src="{% static 'js/main.js' %}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -52,5 +85,7 @@
             });
         });
     </script>
+    <script src="{% static 'mdb/js/mdb.umd.min.js' %}"></script>
+
 </body>
 </html>
